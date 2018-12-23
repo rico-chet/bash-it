@@ -10,8 +10,17 @@ if [ "$1" != "skip" ] && [ -d "./enabled" ]; then
   fi
   for _bash_it_config_file in $(sort <(compgen -G "./enabled/*${_bash_it_config_type}.bash")); do
     if [ -e "${_bash_it_config_file}" ]; then
+      name_and_topic="$(basename --suffix=.bash "${_bash_it_config_file}" \
+        | sed --regexp-extended 's/[[:digit:]]{1,3}-{3}//')"
+      name="$(echo "${name_and_topic}" | cut --delimiter=. --fields=1)"
+      topic="$(echo "${name_and_topic}" | cut --delimiter=. --fields=2)"
+      print_doing "${topic}/${name}"
+
       # shellcheck source=/dev/null
       source $_bash_it_config_file
+
+      print_done "${topic}/${name}"
+      unset name name_and_topic topic
     else
       echo "Unable to read ${_bash_it_config_file}" > /dev/stderr
     fi
