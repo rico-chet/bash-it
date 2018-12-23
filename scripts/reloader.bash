@@ -17,9 +17,13 @@ if [ "$1" != "skip" ] && [ -d "./enabled" ]; then
       print_doing "${topic}/${name}"
 
       # shellcheck source=/dev/null
-      source $_bash_it_config_file
+      if source $_bash_it_config_file
+      then
+        print_done "${topic}/${name}"
+      else
+        print_not_done "${topic}/${name}" ${?}
+      fi
 
-      print_done "${topic}/${name}"
       unset name name_and_topic topic
     else
       echo "Unable to read ${_bash_it_config_file}" > /dev/stderr
