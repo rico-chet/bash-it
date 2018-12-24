@@ -172,6 +172,7 @@ else
   _enable-completion system
   _enable-plugin base
   _enable-plugin alias-completion
+  _enable-plugin history-custom
   _enable-alias general
 fi
 
