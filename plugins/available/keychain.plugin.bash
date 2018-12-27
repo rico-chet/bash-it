@@ -6,7 +6,7 @@ about-plugin 'start a daemon keeping keys unlocked'
 { command -v keychain &>/dev/null \
   && command -v killall &>/dev/null \
   && command -v ssh-add &>/dev/null ;} \
-  || return
+  || return "${SKIPPED}"
 
 killall --quiet gnome-keyring-daemon
 
