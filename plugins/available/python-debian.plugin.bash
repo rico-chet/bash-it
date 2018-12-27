@@ -5,7 +5,7 @@ about-plugin 'add python site-packages for separate storage of user-built module
 
 # Check
 command -v python2 || return "${SKIPPED}"
-{ python2 --version | grep --quiet '^Python 2\.7' ;} || return
+{ python2 --version | grep --quiet '^Python 2\.7' ;} || return "${SKIPPED}"
 [ -r /etc/os-release ] \
 	&& grep --quiet debian /etc/os-release \
 	&& [ -d "/usr/local/lib/python2.7/site-packages" ] \

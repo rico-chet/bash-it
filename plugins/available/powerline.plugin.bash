@@ -3,13 +3,13 @@
 cite about-plugin
 about-plugin 'enables powerline daemon'
 
-command -v powerline-daemon &>/dev/null || return
+command -v powerline-daemon &>/dev/null || return ${SKIPPED}
 powerline-daemon -q
 
 #the following should not be executed if bashit powerline themes in use
 case "$BASH_IT_THEME" in
 	*powerline*)
-		return
+		return 0
 		;;
 esac
 POWERLINE_BASH_CONTINUATION=1
