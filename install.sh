@@ -172,6 +172,7 @@ else
   _enable-completion system
   _enable-plugin base
   _enable-plugin alias-completion
+  _enable-plugin less-raw-chars
   _enable-alias general
 fi
 
