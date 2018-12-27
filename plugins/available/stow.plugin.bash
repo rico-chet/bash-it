@@ -3,7 +3,7 @@ cite about-plugin
 about-plugin 'Set up `GNU stow` directories'
 
 # Check
-command -v stow &>/dev/null || return
+command -v stow &>/dev/null || return "${SKIPPED}"
 
 # Use with e.g. CMake:
 #   cmake libfoo-src -DCMAKE_INSTALL_PREFIX="${STOW_DIR}/libfoo"
