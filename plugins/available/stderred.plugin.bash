@@ -10,11 +10,14 @@ about-plugin 'output stderr in red'
 # git clone https://github.com/sickill/stderred.git
 # cd stderred && make build
 # cmake -DCMAKE_INSTALL_PREFIX="${STOW_DIR}/stderred" build
-# make --jobs install && stow --stow stderred
+# make install && stow --stow stderred
+
+# uninstall from `GNU stow`:
+# stow --unstow stderred
 
 [ -n "${STOW_TARGET_DIR}" ] \
-  && [ -x "${STOW_TARGET_DIR}/lib/libstderred.so" ] \
-	&& command -v tput &>/dev/null \
+  && [ -r "${STOW_TARGET_DIR}/lib/libstderred.so" ] \
+  && command -v tput &>/dev/null \
   || return "${SKIPPED}"
 
 bold=$(tput bold || tput md)
