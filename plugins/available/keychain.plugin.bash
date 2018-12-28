@@ -17,7 +17,7 @@ command -v gpg &>/dev/null && export KEY_AGENTS="${KEY_AGENTS:+${KEY_AGENTS},}gp
 declare -a KEY_FILES
 for key_type in dsa ed25519 rsa
 do
-  [ -r "${HOME}/.ssh/id_${key_type}" ] && KEY_FILES=${KEY_FILES[*]} id_${key_type}
+  [ -r "${HOME}/.ssh/id_${key_type}" ] && KEY_FILES+=("id_${key_type}")
 done
 
 # Word splitting in `eval` clause is intentional, mute shellcheck.
