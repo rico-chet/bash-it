@@ -172,6 +172,16 @@ else
   _enable-completion system
   _enable-plugin base
   _enable-plugin alias-completion
+  _enable-plugin history-custom
+  _enable-plugin keychain
+  _enable-plugin less-raw-chars
+  _enable-plugin stderred
+  _enable-plugin stow
+  _enable-alias git-brief
+  _enable-alias grep-colored
+  _enable-alias ls
+  _enable-alias sudo
+  _enable-alias tig
 fi
 
 echo ""
