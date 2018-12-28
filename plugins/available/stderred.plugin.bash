@@ -15,7 +15,7 @@ about-plugin 'output stderr in red'
 [ -n "${STOW_TARGET_DIR}" ] \
   && [ -x "${STOW_TARGET_DIR}/lib/libstderred.so" ] \
 	&& command -v tput &>/dev/null \
-  || return
+  || return "${SKIPPED}"
 
 bold=$(tput bold || tput md)
 red=$(tput setaf 1)
