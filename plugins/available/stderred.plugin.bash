@@ -24,5 +24,7 @@ bold=$(tput bold || tput md)
 red=$(tput setaf 1)
 STDERRED_ESC_CODE=$(echo -e "${bold}${red}")
 export STDERRED_ESC_CODE
+# for `tmux` compatibility, see https://github.com/sickill/stderred/issues/52
+export STDERRED_BLACKLIST='^(-bash)$'
 export LD_PRELOAD="${STOW_TARGET_DIR}/lib/libstderred.so${LD_PRELOAD:+:${LD_PRELOAD}}"
 unset bold red
