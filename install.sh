@@ -179,6 +179,7 @@ else
   _enable-plugin stow
   _enable-alias git-brief
   _enable-alias grep-colored
+  _enable-alias local
   _enable-alias ls
   _enable-alias sudo
   _enable-alias tig
