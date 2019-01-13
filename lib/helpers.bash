@@ -34,7 +34,7 @@ bash-it ()
 {
     about 'Bash-it help and maintenance'
     param '1: verb [one of: help | show | enable | disable | migrate | update | search | version | reload ] '
-    param '2: component type [one of: alias(es) | completion(s) | plugin(s) ] or search term(s)'
+    param '2: component type [one of: alias(es) | dotfile(s)| completion(s) | plugin(s) ] or search term(s)'
     param '3: specific component [optional]'
     example '$ bash-it show plugins'
     example '$ bash-it help aliases'
@@ -119,6 +119,14 @@ _bash-it-aliases ()
     _bash-it-describe "aliases" "an" "alias" "Alias"
 }
 
+_bash-it-dotfiles ()
+{
+    _about 'summarizes available bash_it dotfiles'
+    _group 'lib'
+
+    _bash-it-describe "dotfiles" "a" "dotfile" "Dotfile"
+}
+
 _bash-it-completions ()
 {
     _about 'summarizes available bash_it completions'
@@ -200,7 +208,7 @@ _bash-it-migrate() {
   declare migrated_something
   migrated_something=false
 
-  for file_type in "aliases" "plugins" "completion"
+  for file_type in "aliases" "dotfiles" "plugins" "completion"
   do
     for f in `sort <(compgen -G "${BASH_IT}/$file_type/enabled/*.bash")`
     do
@@ -327,6 +335,16 @@ _disable-alias ()
     _disable-thing "aliases" "alias" $1
 }
 
+_disable-dotfile ()
+{
+    _about 'disables bash_it dotfile'
+    _param '1: dotfile name'
+    _example '$ disable-dotfile git'
+    _group 'lib'
+
+    _disable-thing "dotfiles" "dotfile" $1
+}
+
 _disable-completion ()
 {
     _about 'disables bash_it completion'
@@ -412,6 +430,16 @@ _enable-alias ()
     _group 'lib'
 
     _enable-thing "aliases" "alias" $1 $BASH_IT_LOAD_PRIORITY_DEFAULT_ALIAS
+}
+
+_enable-dotfile ()
+{
+    _about 'enables bash_it dotfile'
+    _param '1: dotfile name'
+    _example '$ enable-dotfile git'
+    _group 'lib'
+
+    _enable-thing "dotfiles" "dotfile" $1 $BASH_IT_LOAD_PRIORITY_DEFAULT_ALIAS
 }
 
 _enable-completion ()

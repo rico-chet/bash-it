@@ -42,8 +42,8 @@ done
 # shellcheck source=./scripts/reloader.bash
 source "${BASH_IT}/scripts/reloader.bash"
 
-# Load enabled aliases, completion, plugins
-for file_type in "aliases" "plugins" "completion"
+# Load enabled aliases, dotfiles, completion, plugins
+for file_type in "aliases" "dotfiles" "plugins" "completion"
 do
   # shellcheck source=./scripts/reloader.bash
   source "${BASH_IT}/scripts/reloader.bash" "skip" "$file_type"
@@ -66,8 +66,8 @@ if [[ ! -z "${BASH_IT_THEME}" ]]; then
   source "$APPEARANCE_LIB"
 fi
 
-# Load custom aliases, completion, plugins
-for file_type in "aliases" "completion" "plugins"
+# Load custom aliases, dotfiles, completion, plugins
+for file_type in "aliases" "dotfiles" "completion" "plugins"
 do
   if [ -e "${BASH_IT}/${file_type}/custom.${file_type}.bash" ]
   then

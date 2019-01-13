@@ -5,7 +5,7 @@ pushd "${BASH_IT}" >/dev/null || exit 1
 
 if [ "$1" != "skip" ] && [ -d "./enabled" ]; then
   _bash_it_config_type=""
-  if [[ "${1}" =~ ^(alias|completion|plugin)$ ]]; then
+  if [[ "${1}" =~ ^(alias|completion|dotfile|plugin)$ ]]; then
     _bash_it_config_type=$1
   fi
   for _bash_it_config_file in $(sort <(compgen -G "./enabled/*${_bash_it_config_type}.bash")); do
@@ -32,7 +32,7 @@ if [ "$1" != "skip" ] && [ -d "./enabled" ]; then
 fi
 
 
-if [ ! -z "${2}" ] && [[ "${2}" =~ ^(aliases|completion|plugins)$ ]] && [ -d "${2}/enabled" ]; then
+if [ ! -z "${2}" ] && [[ "${2}" =~ ^(aliases|dotfile|completion|plugins)$ ]] && [ -d "${2}/enabled" ]; then
   # TODO: We should warn users they're using legacy enabling
   for _bash_it_config_file in $(sort <(compgen -G "./${2}/enabled/*.bash")); do
     if [ -e "$_bash_it_config_file" ]; then
