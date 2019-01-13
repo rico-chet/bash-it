@@ -184,6 +184,7 @@ else
   _enable-alias sudo
   _enable-alias tig
   _enable-dotfile tmux
+  _enable-dotfile vim
 fi
 
 echo ""
