@@ -183,6 +183,7 @@ else
   _enable-alias ls
   _enable-alias sudo
   _enable-alias tig
+  _enable-dotfile tmux
 fi
 
 echo ""
