@@ -1,0 +1,11 @@
+" mouse in vim confuses me
+set mouse=
+set pastetoggle=<F2>
+
+" spell check in English (US)
+" disable with `setlocal nospell`
+" add words to dictionary with `zg`
+setlocal spell spelllang=en_us
+
+" use `\s` for spell suggestions drop-down
+nnoremap \s ea<C-X><C-S>
