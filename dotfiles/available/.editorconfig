@@ -1,0 +1,33 @@
+# EditorConfig is awesome: http://EditorConfig.org
+
+# top-most EditorConfig file
+root = true
+
+[*.py]
+charset = utf-8
+indent_style = tab
+insert_final_newline = true
+
+[*.puml]
+indent_style = tab
+indent_size = 1
+insert_final_newline = true
+
+[{*.sh,Makefile*}]
+indent_style = tab
+insert_final_newline = true
+max_line_length = 80
+trim_trailing_whitespace = true
+
+[*_EDITMSG]
+indent_size = 4
+indent_style = space
+insert_final_newline = true
+max_line_length = 72
+trim_trailing_whitespace = true
+
+[*.{yml,yaml}]
+indent_size = 4
+indent_style = space
+insert_final_newline = true
+trim_trailing_whitespace = true
