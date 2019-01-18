@@ -175,6 +175,7 @@ else
   _enable-plugin history-custom
   _enable-plugin keychain
   _enable-plugin less-raw-chars
+  _enable-plugin proxy-func
   _enable-plugin stderred
   _enable-plugin stow
   _enable-alias fuck
