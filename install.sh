@@ -177,6 +177,7 @@ else
   _enable-plugin less-raw-chars
   _enable-plugin stderred
   _enable-plugin stow
+  _enable-alias fuck
   _enable-alias git-brief
   _enable-alias grep-colored
   _enable-alias local
