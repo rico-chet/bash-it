@@ -1,5 +1,7 @@
 " mouse in vim confuses me
 set mouse=
+
+" quickly toggle paste mode
 set pastetoggle=<F2>
 
 " spell check in English (US)
@@ -9,3 +11,13 @@ setlocal spell spelllang=en_us
 
 " use `\s` for spell suggestions drop-down
 nnoremap \s ea<C-X><C-S>
+
+" Mark tabs and trailing whitespace
+set listchars=tab:‗‗,trail:‗
+set list
+
+if executable("powerline")
+        " Set up powerline, see
+        " https://powerline.readthedocs.io/en/latest/troubleshooting.html#my-vim-statusline-is-hidden-only-appears-in-split-windows
+        set laststatus=2
+endif
