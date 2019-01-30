@@ -15,3 +15,9 @@ nnoremap \s ea<C-X><C-S>
 " Mark tabs and trailing whitespace
 set listchars=tab:‗‗,trail:‗
 set list
+
+if executable("powerline")
+        " Set up powerline, see
+        " https://powerline.readthedocs.io/en/latest/troubleshooting.html#my-vim-statusline-is-hidden-only-appears-in-split-windows
+        set laststatus=2
+endif
