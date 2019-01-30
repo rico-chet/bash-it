@@ -1,5 +1,7 @@
 " mouse in vim confuses me
 set mouse=
+
+" quickly toggle paste mode
 set pastetoggle=<F2>
 
 " spell check in English (US)
