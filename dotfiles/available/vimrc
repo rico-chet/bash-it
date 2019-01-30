@@ -21,3 +21,9 @@ if executable("powerline")
         " https://powerline.readthedocs.io/en/latest/troubleshooting.html#my-vim-statusline-is-hidden-only-appears-in-split-windows
         set laststatus=2
 endif
+
+if filereadable("/usr/lib/ycmd/ycm_extra_conf.py")
+	" Set up youcompleteme
+	let g:ycm_global_ycm_extra_conf = "/usr/lib/ycmd/ycm_extra_conf.py"
+	filetype on
+endif
