@@ -11,3 +11,7 @@ setlocal spell spelllang=en_us
 
 " use `\s` for spell suggestions drop-down
 nnoremap \s ea<C-X><C-S>
+
+" Mark tabs and trailing whitespace
+set listchars=tab:‗‗,trail:‗
+set list
