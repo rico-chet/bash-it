@@ -25,9 +25,9 @@ set listchars=tab:‗‗,trail:‗
 set list
 
 if executable("powerline")
-        " Set up powerline, see
-        " https://powerline.readthedocs.io/en/latest/troubleshooting.html#my-vim-statusline-is-hidden-only-appears-in-split-windows
-        set laststatus=2
+	" Set up powerline, see
+	" https://powerline.readthedocs.io/en/latest/troubleshooting.html#my-vim-statusline-is-hidden-only-appears-in-split-windows
+	set laststatus=2
 endif
 
 if filereadable("/usr/lib/ycmd/ycm_extra_conf.py")
