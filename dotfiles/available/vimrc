@@ -1,3 +1,11 @@
+" load system defaults when present
+let defaults_file = "/usr/share/vim/vim"
+	\ . (v:version / 100) . (v:version % 10)
+	\ . "/defaults.vim"
+if filereadable(defaults_file)
+	execute "source " . defaults_file
+endif
+
 " mouse in vim confuses me
 set mouse=
 
