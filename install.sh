@@ -186,6 +186,7 @@ else
   _enable-alias ls
   _enable-alias sudo
   _enable-alias tig
+  _enable-alias trash
   _enable-dotfile editorconfig
   _enable-dotfile tmux
   _enable-dotfile vim
