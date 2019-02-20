@@ -2,9 +2,8 @@
 
 # Check
 command -v thefuck 1>/dev/null || return "${SKIPPED}"
-fc -ln -1 &>/dev/null || return 1
-thefuck $(fc -ln -1) &>/dev/null || return 2
+thefuck --alias fuck &>/dev/null || return 1
 
-alias fuck='eval $(thefuck $(fc -ln -1))'
-alias f='fuck'
-alias please='fuck'
+eval $(thefuck --alias f)
+eval $(thefuck --alias fuck)
+eval $(thefuck --alias please)
