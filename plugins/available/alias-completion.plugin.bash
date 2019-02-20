@@ -82,5 +82,5 @@ function alias_completion {
             echo "$new_completion" >> "$tmp_file"
         fi
     done < <(alias -p | sed -Ene "s/$alias_regex/\2 '\3' '\4'/p")
-    source "$tmp_file" && rm -f "$tmp_file"
+    source "$tmp_file" && "$(which rm)" -f "$tmp_file"
 }; alias_completion
