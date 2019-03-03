@@ -1,4 +1,5 @@
 cite 'about-alias'
+# shellcheck disable=SC2016
 about-alias 'replace `rm` with a faster and safer `t`'
 
 # Check
@@ -15,8 +16,10 @@ done
 
 # Replace `rm`
 rm() {
+  # shellcheck disable=SC2016
   echo '`rm` is disabled by `bash-it`, use `t` instead' > /dev/stderr
   return 1
 }
 
+# shellcheck disable=SC2139
 alias t="${_trash}"
