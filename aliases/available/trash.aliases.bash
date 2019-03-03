@@ -27,3 +27,4 @@ rm() {
 
 # shellcheck disable=SC2139
 alias t="${_trash}"
+unset _trash
