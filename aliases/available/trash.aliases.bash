@@ -3,11 +3,15 @@ cite 'about-alias'
 about-alias 'replace `rm` with a faster and safer `t`'
 
 # Check
-for i in gvfs-trash trash
+for i in gio gvfs-trash trash
 do
   if command -v "${i}" &> /dev/null
   then
     _trash="${i}"
+    if [ "${i}" = "gio" ]
+    then
+      _trash+=" trash"
+    fi
     break
   fi
 done
