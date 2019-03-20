@@ -172,7 +172,8 @@ else
   _enable-completion system
   _enable-plugin base
   _enable-plugin alias-completion
-  _enable-plugin keychain
+  _enable-plugin keychain-gpg
+  _enable-plugin keychain-ssh
   _enable-alias general
 fi
 
