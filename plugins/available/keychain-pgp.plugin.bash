@@ -1,28 +1,29 @@
-# start a daemon keeping keys unlocked
+# start a daemon keeping PGP keys unlocked
 
 cite about-plugin
-about-plugin 'start a daemon keeping keys unlocked'
+about-plugin 'start a daemon keeping PGP keys unlocked'
 
-{ command -v keychain &>/dev/null \
+{ command -v gpg &>/dev/null \
+  && command -v keychain &>/dev/null \
   && command -v killall &>/dev/null \
-  && command -v ssh-add &>/dev/null ;} \
+  && command -v readlink &>/dev/null \
+  && command -v pinentry-curses &>/dev/null ;} \
   || return "${SKIPPED}"
 
 killall --quiet gnome-keyring-daemon
 
-declare KEY_AGENTS
-command -v ssh &>/dev/null && export KEY_AGENTS="${KEY_AGENTS:+${KEY_AGENTS},}ssh"
-command -v gpg &>/dev/null && export KEY_AGENTS="${KEY_AGENTS:+${KEY_AGENTS},}gpg"
+FINGERPRINT=$(set -o pipefail; \
+	gpg --list-secret-keys --with-colons \
+	| sed --silent '/^sec:/,/^fpr/ { /^fpr:/p }' \
+	| cut --delimiter=: --fields=10) \
+    || return "${SKIPPED}"
 
-declare -a KEY_FILES
-for key_type in dsa ed25519 rsa
-do
-  [ -r "${HOME}/.ssh/id_${key_type}" ] && KEY_FILES+=("id_${key_type}")
-done
+PINENTRY_CURRENT=$(readlink --canonicalize-existing "$(command -v pinentry)")
+PINENTRY_TTY=$(readlink --canonicalize-existing "$(command -v pinentry-curses)")
+[ "${PINENTRY_CURRENT}" = "${PINENTRY_TTY}" ] || return "${SKIPPED}"
 
 # Word splitting in `eval` clause is intentional, mute shellcheck.
 # shellcheck disable=SC2046
-eval $(keychain --agents "${KEY_AGENTS}" --eval "${KEY_FILES[@]}")
-ssh-add -L 1>/dev/null || ssh-add
+eval $(keychain --agents gpg --eval "${FINGERPRINT}")
 
-unset KEY_AGENTS KEY_FILES
+unset FINGERPRINT PINENTRY_CURRENT PINENTRY_TTY
