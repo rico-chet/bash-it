@@ -174,7 +174,7 @@ else
   _enable-plugin base
   _enable-plugin alias-completion
   _enable-plugin history-custom
-  _enable-plugin keychain-gpg
+  _enable-plugin keychain-pgp
   _enable-plugin keychain-ssh
   _enable-plugin less-raw-chars
   _enable-plugin proxy-func
