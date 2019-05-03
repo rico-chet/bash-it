@@ -19,9 +19,13 @@ done
 [ -n "${_trash}" ] || return "${SKIPPED}"
 
 # Replace `rm`
+rmrm() {
+  /bin/rm "${@}"
+}
+
 rm() {
   # shellcheck disable=SC2016
-  echo '`rm` is disabled by `bash-it`, use `t` instead' > /dev/stderr
+  echo '`rm` is disabled by `bash-it`, use `t` or `rmrm` instead' > /dev/stderr
   return 1
 }
 
