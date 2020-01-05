@@ -189,6 +189,7 @@ else
   _enable-alias tig
   _enable-alias trash
   _enable-dotfile editorconfig
+  _enable-dotfile emacs
   _enable-dotfile tmux
   _enable-dotfile vim
 fi
