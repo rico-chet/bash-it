@@ -40,3 +40,13 @@
 ;; check spelling upon opening a file
 ;; but not for code to improve static analysis result display
 (add-hook 'text-mode-hook 'flyspell-buffer)
+
+;; flycheck
+(use-package flycheck
+  :config
+  (add-hook 'after-init-hook 'global-flycheck-mode)
+  (setq flycheck-check-syntax-automatically '(save mode-enabled))
+  (setq flycheck-checkers (delq 'emacs-lisp-checkdoc flycheck-checkers))
+  (setq flycheck-checkers (delq 'html-tidy flycheck-checkers))
+  (setq flycheck-standard-error-navigation nil)
+  (global-flycheck-mode t))
