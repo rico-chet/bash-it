@@ -23,6 +23,12 @@
   (add-hook 'after-change-major-mode-hook 'fci-mode 1)
 )
 
+(use-package ag
+  :config
+  (setq ag-highlight-search t)
+  (add-hook 'after-change-major-mode-hook 'next-error-follow-minor-mode 1)
+)
+
 ;; don't pollute directories
 (setq auto-save-default nil)
 (setq make-backup-files nil)
