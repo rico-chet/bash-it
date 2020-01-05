@@ -16,3 +16,11 @@
 ;; don't pollute directories
 (setq auto-save-default nil)
 (setq make-backup-files nil)
+
+;; check spelling while typing
+(add-hook 'text-mode-hook 'flyspell-mode)
+(add-hook 'prog-mode-hook 'flyspell-prog-mode)
+
+;; check spelling upon opening a file
+;; but not for code to improve static analysis result display
+(add-hook 'text-mode-hook 'flyspell-buffer)
