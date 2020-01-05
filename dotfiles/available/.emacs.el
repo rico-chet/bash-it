@@ -50,3 +50,6 @@
   (setq flycheck-checkers (delq 'html-tidy flycheck-checkers))
   (setq flycheck-standard-error-navigation nil)
   (global-flycheck-mode t))
+
+;; hide the menu bar to save space
+(menu-bar-mode -1)
