@@ -18,6 +18,11 @@
   (add-hook 'after-change-major-mode-hook 'highlight-indentation-mode 1)
 )
 
+(use-package fill-column-indicator
+  :config
+  (add-hook 'after-change-major-mode-hook 'fci-mode 1)
+)
+
 ;; don't pollute directories
 (setq auto-save-default nil)
 (setq make-backup-files nil)
