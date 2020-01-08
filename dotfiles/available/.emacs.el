@@ -11,7 +11,7 @@
 
 (use-package editorconfig
   :config
-  (editorconfig-mode 1))
+  (if (fboundp 'editorconfig-mode) (editorconfig-mode 1)))
 
 (use-package highlight-indentation
   :config
