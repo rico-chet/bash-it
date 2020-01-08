@@ -11,7 +11,7 @@
 
 (use-package editorconfig
   :config
-  (editorconfig-mode 1))
+  (if (fboundp 'editorconfig-mode) (editorconfig-mode 1)))
 
 (use-package highlight-indentation
   :config
@@ -52,4 +52,5 @@
   (global-flycheck-mode t))
 
 ;; hide the menu bar to save space
-(menu-bar-mode -1)
+(if (not (eq window-system 'x))
+  (menu-bar-mode -1))
