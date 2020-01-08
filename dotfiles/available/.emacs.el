@@ -52,4 +52,5 @@
   (global-flycheck-mode t))
 
 ;; hide the menu bar to save space
-(menu-bar-mode -1)
+(if (not (eq window-system 'x))
+  (menu-bar-mode -1))
