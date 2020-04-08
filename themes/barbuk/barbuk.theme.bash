@@ -2,16 +2,20 @@
 # shellcheck disable=2034,2154
 
 # Theme custom glyphs
-SCM_GIT_CHAR_GITLAB=${SCM_GITLAB_CHAR:='  '}
-SCM_GIT_CHAR_BITBUCKET=${SCM_GIT_CHAR_BITBUCKET:='  '}
-SCM_GIT_CHAR_GITHUB=${SCM_GIT_CHAR_GITHUB:='  '}
-SCM_GIT_CHAR_DEFAULT=${SCM_GIT_CHAR_DEFAULT:='  '}
-SCM_GIT_CHAR_ICON_BRANCH=${SCM_GIT_CHAR_ICON_BRANCH:=''}
-EXIT_CODE_ICON=${EXIT_CODE_ICON:=' '}
+SCM_GIT_CHAR_GITLAB=${BARBUK_GITLAB_CHAR:='  '}
+SCM_GIT_CHAR_BITBUCKET=${BARBUK_BITBUCKET_CHAR:='  '}
+SCM_GIT_CHAR_GITHUB=${BARBUK_GITHUB_CHAR:='  '}
+SCM_GIT_CHAR_DEFAULT=${BARBUK_GIT_DEFAULT_CHAR:='  '}
+SCM_GIT_CHAR_ICON_BRANCH=${BARBUK_GIT_BRANCH_ICON:=''}
+SCM_HG_CHAR=${BARBUK_HG_CHAR:='☿ '}
+SCM_SVN_CHAR=${BARBUK_SVN_CHAR:='⑆ '}
+EXIT_CODE_ICON=${BARBUK_EXIT_CODE_ICON:=' '}
+
+# Ssh user and hostname display
+SSH_INFO=${BARBUK_SSH_INFO:=true}
+HOST_INFO=${BARBUK_HOST_INFO:=long}
 
 # Bash-it default glyphs customization
-SCM_HG_CHAR='☿ '
-SCM_SVN_CHAR='⑆ '
 SCM_NONE_CHAR=
 SCM_THEME_PROMPT_DIRTY=" ${bold_red}✗"
 SCM_THEME_PROMPT_CLEAN=" ${bold_green}✓"
@@ -31,7 +35,7 @@ SCM_THEME_CURRENT_USER_PREFFIX='  '
 SCM_GIT_SHOW_CURRENT_USER=false
 
 function _git-uptream-remote-logo {
-    [[ "$(_git-upstream)" == "" ]] && return
+    [[ "$(_git-upstream)" == "" ]] && SCM_GIT_CHAR="$SCM_GIT_CHAR_DEFAULT"
 
     local remote remote_domain
     remote=$(_git-upstream-remote)
@@ -62,7 +66,7 @@ function _exit-code {
 }
 
 function _prompt {
-    local exit_code="$?" wrap_char=' ' dir_color=$green
+    local exit_code="$?" wrap_char=' ' dir_color=$green ssh_info='' host
 
     _exit-code exit_code
     _git-uptream-remote-logo
@@ -74,7 +78,17 @@ function _prompt {
         dir_color=$red
     fi
 
-    PS1="\\n ${purple}$(scm_char)${dir_color}\\w${normal}$(scm_prompt_info)${exit_code}"
+    # Detect ssh
+    if [[ -n "${SSH_CONNECTION}" ]] && [ "$SSH_INFO" = true ]; then
+        if [ "$HOST_INFO" = long ]; then
+            host="\H"
+        else
+            host="\h"
+        fi
+        ssh_info="${bold_blue}\u${bold_orange}@${cyan}$host ${bold_orange}in"
+    fi
+
+    PS1="\\n${ssh_info} ${purple}$(scm_char)${dir_color}\\w${normal}$(scm_prompt_info)${exit_code}"
 
     [[ ${#PS1} -gt $((COLUMNS*3)) ]] && wrap_char="\\n"
     PS1="${PS1}${wrap_char}❯${normal} "
