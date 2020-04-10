@@ -4,6 +4,8 @@ bats_executable="${test_directory}/../test_lib/bats-core/bin/bats"
 
 git submodule init && git submodule update
 
+rm --force /tmp/bash-it-test-dirs.log
+
 if [ -z "${BASH_IT}" ]; then
   declare BASH_IT
   BASH_IT=$(cd ${test_directory} && dirname "$(pwd)")

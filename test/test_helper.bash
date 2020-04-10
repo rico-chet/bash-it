@@ -6,7 +6,22 @@ unset TODO
 unset SCM_CHECK
 unset BASH_IT_AUTOMATIC_RELOAD_AFTER_CONFIG_CHANGE
 
+log_path_var()
+{
+  local -r var_name="${1}"
+  echo "${var_name}: $(realpath --canonicalize-missing "${!var_name}")" \
+    >> /tmp/bash-it-test-dirs.log
+}
 
+# environment variables and their typical values
+#
+# BASH_IT: /tmp/.bash_it
+# BASH_IT_ROOT: /tmp/.bash_it/root
+# BASH_IT_TEST_DIR: /tmp/.bash_it
+# BATS_TMPDIR: /tmp
+# HOME: /tmp/home
+# TEST_DEPS_DIR: /mnt/dev/bash-it/test_lib
+# TEST_MAIN_DIR: /mnt/dev/bash-it/test
 
 export TEST_MAIN_DIR="${BATS_TEST_DIRNAME}/.."
 export TEST_DEPS_DIR="${TEST_DEPS_DIR-${TEST_MAIN_DIR}/../test_lib}"
