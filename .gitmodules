@@ -1,6 +1,6 @@
 [submodule "test_lib/bats-core"]
 	path = test_lib/bats-core
-	url = https://github.com/bats-core/bats-core
+	url = https://github.com/rico-chet/bats-core
 [submodule "test_lib/bats-support"]
 	path = test_lib/bats-support
 	url = https://github.com/ztombol/bats-support
