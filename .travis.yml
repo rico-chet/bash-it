@@ -1,5 +1,8 @@
 sudo: false
-script: test/run
+script: |
+  sudo apt-get update || true
+  sudo apt-get install --assume-yes parallel || true
+  TEST_JOBS=detect test/run
 language: c
 os:
   - linux
