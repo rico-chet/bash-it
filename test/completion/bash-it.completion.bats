@@ -20,21 +20,6 @@ function local_setup {
   mkdir -p "$BASH_IT"/aliases/enabled
   mkdir -p "$BASH_IT"/completion/enabled
   mkdir -p "$BASH_IT"/plugins/enabled
-
-  # Don't pollute the user's actual $HOME directory
-  # Use a test home directory instead
-  export BASH_IT_TEST_CURRENT_HOME="${HOME}"
-  export BASH_IT_TEST_HOME="$(cd "${BASH_IT}/.." && pwd)/BASH_IT_TEST_HOME"
-  mkdir -p "${BASH_IT_TEST_HOME}"
-  export HOME="${BASH_IT_TEST_HOME}"
-}
-
-function local_teardown {
-  export HOME="${BASH_IT_TEST_CURRENT_HOME}"
-
-  rm -rf "${BASH_IT_TEST_HOME}"
-
-  assert_equal "${BASH_IT_TEST_CURRENT_HOME}" "${HOME}"
 }
 
 @test "completion bash-it: ensure that the _bash-it-comp function is available" {
