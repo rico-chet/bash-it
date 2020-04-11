@@ -6,11 +6,11 @@ load ../../lib/composure
 load ../../plugins/available/ruby.plugin
 
 function local_setup {
+  rm -rf "$BASH_IT"
   mkdir -p "$BASH_IT"
   lib_directory="$(cd "$(dirname "$0")" && pwd)"
-  # Use rsync to copy Bash-it to the temp folder
-  # rsync is faster than cp, since we can exclude the large ".git" folder
-  rsync -qavrKL -d --delete-excluded --exclude=.git $lib_directory/../../.. "$BASH_IT"
+  find $lib_directory/../../.. -mindepth 1 -maxdepth 1 -not -name .git \
+    -exec cp -rt "$BASH_IT" {} +
 
   rm -rf "$BASH_IT"/enabled
   rm -rf "$BASH_IT"/aliases/enabled
