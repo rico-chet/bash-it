@@ -1,0 +1,134 @@
+#!/usr/bin/env bash
+
+set -o errexit
+set -o nounset
+
+docker build --tag bash-it-scp-test - <<-EOF
+  FROM linuxserver/openssh-server
+  RUN apk add openssh-client sshpass
+EOF
+
+declare -r user_name=user____
+declare -r user_password=secret
+declare -i -r ssh_port=2222
+
+declare -r duration_report_string="bash-it SCP download duration"
+
+test_container_script="$(cat <<-EOF
+  set -o errexit
+  set -o nounset
+
+  apk add openssh-client sshpass
+
+  # This is where a writable copy of bash-it is stored for testing.
+  declare -r bash_it_dir="\$(
+    sshpass -p "${user_password}" \
+      ssh \
+        -l "${user_name}" \
+        -o NoHostAuthenticationForLocalhost=true \
+        -p ${ssh_port} \
+      localhost "mkdir .bash_it && realpath .bash_it"
+  )"
+
+  # copy testee to user's homedir
+  find . \
+    -mindepth 1 -maxdepth 1 \
+    -not -name .git \
+    -not -name 'test*' \
+    -exec \
+      cp \
+        --archive \
+        --recursive \
+        --target-directory "\${bash_it_dir}" \
+      {} +
+
+  #ls -l "\${bash_it_dir}"
+
+
+  sshpass -p "${user_password}" \
+    ssh \
+      -l "${user_name}" \
+      -o NoHostAuthenticationForLocalhost=true \
+      -p ${ssh_port} \
+      localhost '
+        printf "echo slowpoke\\nsleep 10\\n" > \
+          ".bash_it/plugins/available/slowpoke.plugin.bash" \
+        && .bash_it/install.sh --silent \
+        && source .bashrc \
+        && bash-it enable plugin slowpoke \
+        && sed --in-place "s/^# TODO: Add debugging output$/echo hello/" \
+          .bash_it/scripts/reloader.bash \
+        && echo "bash-it test data" > /tmp/msg
+      '
+
+  find "\${bash_it_dir}/enabled" -not -type d
+
+  export TIMEFORMAT="${duration_report_string}: %R"
+  time sshpass -p "${user_password}" \
+    scp \
+      -o "User=${user_name}" \
+      -o NoHostAuthenticationForLocalhost=true \
+      -P ${ssh_port} \
+      localhost:/tmp/msg /tmp/newmsg
+  diff /tmp/msg /tmp/newmsg
+EOF
+)"
+
+# The '%R' in TIMEFORMAT makes `time` emit duration like '1.234', in seconds.
+declare -r duration_pattern='([[:digit:]]+)\.([[:digit:]]{3})'
+
+extract_duration()
+{
+  local sed_parameters=(
+    # extended regex for better readability
+    -E
+
+    # extract the duration value which is like 1.234
+    -e "s/^${duration_report_string}: (${duration_pattern})[[:space:]]*$/\1/"
+
+    # delete all but matching lines
+    -e t -e d
+  )
+  sed "${sed_parameters[@]}" \
+  | head -1
+}
+
+# linuxserver/openssh-server
+#test_duration_float="$(
+  timeout 5m \
+    docker run \
+      --env PASSWORD_ACCESS=true \
+      --env PGID="$(id --group)" \
+      --env PUID="$(id --user)" \
+      --env USER_NAME="${user_name}" \
+      --env USER_PASSWORD="${user_password}" \
+      --rm \
+      --tty \
+      --volume "$(pwd):$(pwd):ro" \
+      --workdir "$(pwd)" \
+      bash-it-scp-test \
+      bash -c "${test_container_script}"
+    #| extract_duration
+#)"
+
+exit
+
+# bash cannot do floating-point math, so perform calculations in milliseconds
+declare -i test_duration_ms
+test_duration_ms="$(
+  declare -i seconds_part
+  seconds_part="$(
+    echo "${test_duration_float}" \
+    | sed -E "s/^${duration_pattern}$/\1/"
+  )"
+
+  declare -i milliseconds_part
+  milliseconds_part="$(
+    echo "${test_duration_float}" \
+    | sed -E "s/^${duration_pattern}$/\2/"
+  )"
+
+  echo $(( (seconds_part * 1000 ) + milliseconds_part ))
+)"
+
+echo "$test_duration_ms"
