@@ -3,3 +3,19 @@ language: shell
 os:
   - linux
   - osx
+services:
+  - docker
+before_install:
+  - |
+    if ! command -v docker 2> /dev/null
+    then
+      true; return
+    fi
+
+    docker pull alpine
+    docker run \
+      --rm \
+      --tty \
+      --volume "$(pwd):$(pwd):ro" \
+      --workdir "$(pwd)" \
+      alpine sh -c 'apk add bash && ! test/run # known bad'
