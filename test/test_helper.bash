@@ -138,3 +138,17 @@ assert_link_exist() {
     fi
   fi
 }
+
+skip_if_no() {
+  if [[ "${CI}" ]]
+  then
+    # In CI environment, don't skip any tests
+    return
+  fi
+
+  local command="${1}"
+  if ! _command_exists "${command}"
+  then
+    skip "'${command}' not found"
+  fi
+}
