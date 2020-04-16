@@ -18,4 +18,4 @@ before_install:
       --tty \
       --volume "$(pwd):$(pwd):ro" \
       --workdir "$(pwd)" \
-      alpine sh -c 'apk add bash && ! test/run # known bad'
+      alpine sh -c 'apk add bash && test/run'
