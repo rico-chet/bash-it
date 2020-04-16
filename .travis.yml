@@ -1,55 +1,32 @@
-script: test/run
+script: |
+  if ! ${with_docker}
+  then
+    test/run
+    return
+  fi
+
+  docker run \
+    --rm \
+    --tty \
+    --volume "$(pwd):$(pwd):ro" \
+    --workdir "$(pwd)" \
+    ${docker_img} sh -c "${install_cmd} ${pkgs} && test/run"
+
 language: shell
 os:
   - linux
   - osx
+env:
+  - with_docker=false
+  - |
+    with_docker=true
+    docker_img=alpine
+    install_cmd='apk add'
+    pkgs="bash"
+  - |
+    with_docker=true
+    docker_img=debian:oldoldstable
+    install_cmd='apt update && apt install -y'
+    pkgs="bash"
 services:
   - docker
-before_install:
-  - |
-    if ! command -v docker 2> /dev/null
-    then
-      true; return
-    fi
-
-    docker run \
-      --rm \
-      --tty \
-      --volume "$(pwd):$(pwd):ro" \
-      --workdir "$(pwd)" \
-      alpine sh -c 'apk add bash && test/run'
-
-    docker run \
-      --rm \
-      --tty \
-      --volume "$(pwd):$(pwd):ro" \
-      --workdir "$(pwd)" \
-      debian:oldoldstable sh -c 'apt update && apt install -y bash && test/run'
-
-    docker run \
-      --rm \
-      --tty \
-      --volume "$(pwd):$(pwd):ro" \
-      --workdir "$(pwd)" \
-      debian:oldstable sh -c 'apt update && apt install -y bash && test/run'
-
-    docker run \
-      --rm \
-      --tty \
-      --volume "$(pwd):$(pwd):ro" \
-      --workdir "$(pwd)" \
-      debian:stable sh -c 'apt update && apt install -y bash && test/run'
-
-    docker run \
-      --rm \
-      --tty \
-      --volume "$(pwd):$(pwd):ro" \
-      --workdir "$(pwd)" \
-      debian:unstable sh -c 'apt update && apt install -y bash && test/run'
-
-    docker run \
-      --rm \
-      --tty \
-      --volume "$(pwd):$(pwd):ro" \
-      --workdir "$(pwd)" \
-      debian:testing sh -c 'apt update && apt install -y bash && test/run'
