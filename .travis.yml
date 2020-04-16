@@ -12,10 +12,44 @@ before_install:
       true; return
     fi
 
-    docker pull alpine
     docker run \
       --rm \
       --tty \
       --volume "$(pwd):$(pwd):ro" \
       --workdir "$(pwd)" \
       alpine sh -c 'apk add bash && test/run'
+
+    docker run \
+      --rm \
+      --tty \
+      --volume "$(pwd):$(pwd):ro" \
+      --workdir "$(pwd)" \
+      debian:oldoldstable sh -c 'apt update && apt install -y bash && test/run'
+
+    docker run \
+      --rm \
+      --tty \
+      --volume "$(pwd):$(pwd):ro" \
+      --workdir "$(pwd)" \
+      debian:oldstable sh -c 'apt update && apt install -y bash && test/run'
+
+    docker run \
+      --rm \
+      --tty \
+      --volume "$(pwd):$(pwd):ro" \
+      --workdir "$(pwd)" \
+      debian:stable sh -c 'apt update && apt install -y bash && test/run'
+
+    docker run \
+      --rm \
+      --tty \
+      --volume "$(pwd):$(pwd):ro" \
+      --workdir "$(pwd)" \
+      debian:unstable sh -c 'apt update && apt install -y bash && test/run'
+
+    docker run \
+      --rm \
+      --tty \
+      --volume "$(pwd):$(pwd):ro" \
+      --workdir "$(pwd)" \
+      debian:testing sh -c 'apt update && apt install -y bash && test/run'
