@@ -16,14 +16,14 @@ _alpine_docker_job: &alpine_docker_job
   <<: *docker_job
   _alpine_docker_job_env: &alpine_docker_job_env
     <<: *docker_job_env
-    install_cmd: "apk -q update && apk -q add"
+    install_cmd: '"apk -q update && apk -q add"'
     docker_img_name: alpine
     docker_img_version: latest
 
 _debian_docker_job: &debian_docker_job
   <<: *docker_job
   _debian_docker_job_env: &debian_docker_job_env
-    install_cmd: "apt update && apt install -y"
+    install_cmd: '"apt update && apt install -y"'
     docker_img_name: debian
 
 _native_job: &native_job
