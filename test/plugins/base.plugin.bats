@@ -8,6 +8,7 @@ load ../../plugins/available/base.plugin
   if [[ $CI ]]; then
     skip 'ifconfig probably requires sudo on TravisCI'
   fi
+  skip_if_no ifconfig
 
   declare -r localhost='127.0.0.1'
   run ips
