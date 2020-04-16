@@ -17,6 +17,7 @@ load ../../plugins/available/base.plugin
 }
 
 @test 'plugins base: myip()' {
+  skip_if_no curl
   run myip
   assert_success
   declare -r mask_ip=$(echo $output | tr -s '[0-9]' '?')
