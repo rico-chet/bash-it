@@ -363,6 +363,12 @@ setup_repo_with_upstream() {
 }
 
 @test 'themes base: Git: git user info: shows user initials' {
+  # parts of this test don't work with ASCII-only
+  if ! { echo "${LANG:-}" | grep -iq 'UTF-8'; }
+  then
+    skip "not a UTF-8 TTY"
+  fi
+
   pre="\$(_git-friendly-ref)"
 
   enter_new_git_repo
