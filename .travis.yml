@@ -9,12 +9,13 @@ _docker_job: &docker_job
         "${docker_img_name}:${docker_img_version}" \
         sh -c \
           "${install_cmd} ${default_pkgs} ${pkgs} && test/run"
-  _docker_job_env:
+  _docker_job_env: &docker_job_env
     default_pkgs: bash
 
 _alpine_docker_job: &alpine_docker_job
   <<: *docker_job
-  _alpine_docker_job_env: *alpine_docker_job_env
+  _alpine_docker_job_env: &alpine_docker_job_env
+    <<: *docker_job_env
     install_cmd: apk -q update && apk -q add
     docker_img_version: latest
 
