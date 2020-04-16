@@ -1,26 +1,3 @@
-language: shell
-services:
-  - docker
-jobs:
-  include:
-    - os: osx
-      <<: *native_job
-    - os: linux
-      <<: *native_job
-    - <<: *alpine_docker_job
-    - <<: *debian_docker_job
-      env:
-        docker_img_version: oldoldstable
-    - <<: *debian_docker_job
-      env:
-        docker_img_version: oldstable
-    - <<: *debian_docker_job
-      env:
-        docker_img_version: stable
-    - <<: *debian_docker_job
-      env:
-        docker_img_version: testing
-
 _docker_job: &docker_job
   os: linux
   script: |
@@ -48,3 +25,26 @@ _debian_docker: &debian_docker_job
 
 _native_job: &native_job
   script: test/run
+
+language: shell
+services:
+  - docker
+jobs:
+  include:
+    - os: osx
+      <<: *native_job
+    - os: linux
+      <<: *native_job
+    - <<: *alpine_docker_job
+    - <<: *debian_docker_job
+      env:
+        docker_img_version: oldoldstable
+    - <<: *debian_docker_job
+      env:
+        docker_img_version: oldstable
+    - <<: *debian_docker_job
+      env:
+        docker_img_version: stable
+    - <<: *debian_docker_job
+      env:
+        docker_img_version: testing
