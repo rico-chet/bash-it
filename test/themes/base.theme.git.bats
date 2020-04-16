@@ -9,6 +9,10 @@ load ../../lib/helpers
 load ../../themes/githelpers.theme
 load ../../themes/base.theme
 
+local_setup() {
+  skip_if_no git
+}
+
 add_commit() {
   local file_name="general-${RANDOM}"
   touch "${file_name}"

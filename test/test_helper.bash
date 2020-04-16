@@ -78,11 +78,14 @@ setup() {
   export HOME="${TEST_TEMP_DIR}"
   mkdir -p "${HOME}"
 
-  # For `git` tests to run well, user name and email need to be set.
-  # Refer to https://git-scm.com/docs/git-commit#_commit_information.
-  # This goes to the test-specific config, due to the $HOME overridden above.
-  git config --global user.name "John Doe"
-  git config --global user.email "johndoe@example.com"
+  if command -v git 2> /dev/null
+  then
+    # For `git` tests to run well, user name and email need to be set.
+    # Refer to https://git-scm.com/docs/git-commit#_commit_information.
+    # This goes to the test-specific config, due to the $HOME overridden above.
+    git config --global user.name "John Doe"
+    git config --global user.email "johndoe@example.com"
+  fi
 
   local_setup
 }
