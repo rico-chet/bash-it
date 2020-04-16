@@ -19,13 +19,31 @@ _alpine_docker_job: &alpine_docker_job
     install_cmd: '"apk -q update && apk -q add"'
     docker_img_name: alpine
     docker_img_version: latest
+  env:
+    <<: *alpine_docker_job_env
+
+_centos_docker_job: &centos_docker_job
+  <<: *docker_job
+  _centos_docker_job_env: &centos_docker_job_env
+    <<: *docker_job_env
+    install_cmd: '"yum -q -y install"'
+    docker_img_name: centos
+    docker_img_version: latest
+  env:
+    <<: *centos_docker_job_env
 
 _debian_docker_job: &debian_docker_job
   <<: *docker_job
   _debian_docker_job_env: &debian_docker_job_env
     <<: *docker_job_env
-    install_cmd: '"apt update && apt install -y"'
+    install_cmd: '"apt-get update && apt-get install -y"'
     docker_img_name: debian
+
+_ubuntu_docker_job: &ubuntu_docker_job
+  <<: *debian_docker_job
+  _ubuntu_docker_job_env: &ubuntu_docker_job_env
+    <<: *debian_docker_job_env
+    docker_img_name: ubuntu
 
 _native_job: &native_job
   script: test/run
@@ -39,21 +57,32 @@ jobs:
   - <<: *native_job
     os: linux
   - <<: *alpine_docker_job
-    env:
-      <<: *alpine_docker_job_env
+  - <<: *centos_docker_job
   - <<: *debian_docker_job
     env:
-      <<: *debian_docker_job_env
       docker_img_version: oldoldstable
+      <<: *debian_docker_job_env
   - <<: *debian_docker_job
     env:
-      <<: *debian_docker_job_env
       docker_img_version: oldstable
+      <<: *debian_docker_job_env
   - <<: *debian_docker_job
     env:
-      <<: *debian_docker_job_env
       docker_img_version: stable
+      <<: *debian_docker_job_env
   - <<: *debian_docker_job
     env:
-      <<: *debian_docker_job_env
       docker_img_version: testing
+      <<: *debian_docker_job_env
+  - <<: *ubuntu_docker_job
+    env:
+      docker_img_version: latest
+      <<: *ubuntu_docker_job_env
+  - <<: *ubuntu_docker_job
+    env:
+      docker_img_version: rolling
+      <<: *ubuntu_docker_job_env
+  - <<: *ubuntu_docker_job
+    env:
+      docker_img_version: devel
+      <<: *ubuntu_docker_job_env
