@@ -1,6 +1,6 @@
 _job: &job
   env: &job_env
-    expected_result: -eq 0
+    expected_result: '"-eq 0"'
 
 _native_job: &native_job
   <<: *job
@@ -71,7 +71,7 @@ jobs:
   - <<: *alpine_docker_job
   - <<: *centos_docker_job
     env:
-      expected_result: -ne 0 # failures due to missing `where`
+      expected_result: '"-ne 0"' # failures due to missing `where`
       <<: *centos_docker_job_env
   - <<: *debian_docker_job
     env:
