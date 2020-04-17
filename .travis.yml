@@ -1,7 +1,10 @@
+_native_job: &native_job
+  script: ${predicate} test/run
+
 _docker_job: &docker_job
   os: linux
   script: |
-    docker run \
+    ${predicate} docker run \
       --rm \
       --tty \
       --volume "$(pwd):$(pwd):ro" \
@@ -45,9 +48,6 @@ _ubuntu_docker_job: &ubuntu_docker_job
     <<: *debian_docker_job_env
     docker_img_name: ubuntu
 
-_native_job: &native_job
-  script: test/run
-
 language: shell
 services:
   - docker
@@ -58,6 +58,9 @@ jobs:
     os: linux
   - <<: *alpine_docker_job
   - <<: *centos_docker_job
+    env:
+      predicate: "!" # failures due to missing `where`
+      <<: *centos_docker_job_env
   - <<: *debian_docker_job
     env:
       docker_img_version: oldoldstable
