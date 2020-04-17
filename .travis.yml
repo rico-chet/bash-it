@@ -6,7 +6,7 @@ _native_job: &native_job
   <<: *job
   script: |
     test/run
-    [ ${?} ${expected_result} ]; return
+    eval "[ ${?} ${expected_result} ]"
   env:
     <<: *job_env
 
@@ -22,7 +22,7 @@ _docker_job: &docker_job
         "${docker_img_name}:${docker_img_version}" \
         sh -c \
           "${install_cmd} ${default_pkgs} ${pkgs} && test/run"
-    [ ${?} ${expected_result} ]; return
+    eval "[ ${?} ${expected_result} ]"
   _docker_job_env: &docker_job_env
     <<: *job_env
     default_pkgs: bash
