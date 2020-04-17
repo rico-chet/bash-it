@@ -2,12 +2,18 @@ _predicate:
   known_bad: "!" &known_bad
 
 _native_job: &native_job
-  script: ${predicate} test/run
+  script: |
+    if ${predicate} test/run
+    then
+      return 0
+    else
+      return 1
+    fi
 
 _docker_job: &docker_job
   os: linux
   script: |
-    ${predicate} docker run \
+    if ${predicate} docker run \
       --rm \
       --tty \
       --volume "$(pwd):$(pwd):ro" \
@@ -15,6 +21,11 @@ _docker_job: &docker_job
         "${docker_img_name}:${docker_img_version}" \
         sh -c \
           "${install_cmd} ${default_pkgs} ${pkgs} && test/run"
+    then
+      return 0
+    else
+      return 1
+    fi
   _docker_job_env: &docker_job_env
     default_pkgs: bash
 
