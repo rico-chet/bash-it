@@ -1,16 +1,24 @@
+_job_result: &job_result
+  - "-eq 0" &good_result
+  - "-ne 0" &bad_result
+
+_job: &job
+  env: &job_env
+    expected_result: *good_result
+
 _native_job: &native_job
+  <<: *job
   script: |
-    if ${predicate} test/run
-    then
-      true; return
-    else
-      false; return
-    fi
+    test/run
+    [ ${?} ${expected_result} ]; return
+  env:
+    <<: *job_env
 
 _docker_job: &docker_job
+  <<: *job
   os: linux
   script: |
-    if ${predicate} docker run \
+    docker run \
       --rm \
       --tty \
       --volume "$(pwd):$(pwd):ro" \
@@ -18,12 +26,9 @@ _docker_job: &docker_job
         "${docker_img_name}:${docker_img_version}" \
         sh -c \
           "${install_cmd} ${default_pkgs} ${pkgs} && test/run"
-    then
-      true; return
-    else
-      false; return
-    fi
+    [ ${?} ${expected_result} ]; return
   _docker_job_env: &docker_job_env
+    <<: *job_env
     default_pkgs: bash
 
 _alpine_docker_job: &alpine_docker_job
@@ -70,7 +75,7 @@ jobs:
   - <<: *alpine_docker_job
   - <<: *centos_docker_job
     env:
-      predicate: "!" # failures due to missing `where`
+      expected_result: *bad_result # failures due to missing `where`
       <<: *centos_docker_job_env
   - <<: *debian_docker_job
     env:
