@@ -1,3 +1,6 @@
+_predicate:
+  known_bad: "!" &known_bad
+
 _native_job: &native_job
   script: ${predicate} test/run
 
@@ -18,35 +21,35 @@ _docker_job: &docker_job
 _alpine_docker_job: &alpine_docker_job
   <<: *docker_job
   _alpine_docker_job_env: &alpine_docker_job_env
-    <<: *docker_job_env
-    install_cmd: '"apk -q update && apk -q add"'
     docker_img_name: alpine
     docker_img_version: latest
+    <<: *docker_job_env
+    install_cmd: '"apk -q update && apk -q add"'
   env:
     <<: *alpine_docker_job_env
 
 _centos_docker_job: &centos_docker_job
   <<: *docker_job
   _centos_docker_job_env: &centos_docker_job_env
-    <<: *docker_job_env
-    install_cmd: '"yum -q -y install"'
     docker_img_name: centos
     docker_img_version: latest
+    <<: *docker_job_env
+    install_cmd: '"yum -q -y install"'
   env:
     <<: *centos_docker_job_env
 
 _debian_docker_job: &debian_docker_job
   <<: *docker_job
   _debian_docker_job_env: &debian_docker_job_env
+    docker_img_name: debian
     <<: *docker_job_env
     install_cmd: '"apt-get update && apt-get install -y"'
-    docker_img_name: debian
 
 _ubuntu_docker_job: &ubuntu_docker_job
   <<: *debian_docker_job
   _ubuntu_docker_job_env: &ubuntu_docker_job_env
-    <<: *debian_docker_job_env
     docker_img_name: ubuntu
+    <<: *debian_docker_job_env
 
 language: shell
 services:
@@ -59,23 +62,23 @@ jobs:
   - <<: *alpine_docker_job
   - <<: *centos_docker_job
     env:
-      predicate: "!" # failures due to missing `where`
+      predicate: *known_bad # failures due to missing `where`
       <<: *centos_docker_job_env
   - <<: *debian_docker_job
     env:
-      docker_img_version: oldoldstable
+      docker_img_version: oldoldstable-slim
       <<: *debian_docker_job_env
   - <<: *debian_docker_job
     env:
-      docker_img_version: oldstable
+      docker_img_version: oldstable-slim
       <<: *debian_docker_job_env
   - <<: *debian_docker_job
     env:
-      docker_img_version: stable
+      docker_img_version: stable-slim
       <<: *debian_docker_job_env
   - <<: *debian_docker_job
     env:
-      docker_img_version: testing
+      docker_img_version: testing-slim
       <<: *debian_docker_job_env
   - <<: *ubuntu_docker_job
     env:
