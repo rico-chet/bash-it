@@ -5,9 +5,9 @@ _native_job: &native_job
   script: |
     if ${predicate} test/run
     then
-      return 0
+      true; return
     else
-      return 1
+      false; return
     fi
 
 _docker_job: &docker_job
@@ -22,9 +22,9 @@ _docker_job: &docker_job
         sh -c \
           "${install_cmd} ${default_pkgs} ${pkgs} && test/run"
     then
-      return 0
+      true; return
     else
-      return 1
+      false; return
     fi
   _docker_job_env: &docker_job_env
     default_pkgs: bash
