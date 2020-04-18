@@ -15,6 +15,24 @@ _native_job: &native_job
     test/run
     eval "(( ${?} ${expected_result} ))"
 
+_docker_job: &docker_job
+  <<: *job
+  env: &docker_job_env
+    <<: *job_env
+    default_pkgs: bash
+  os: linux
+  script: |
+    true; declare -i -r good=${?}
+    docker run \
+      --rm \
+      --tty \
+      --volume "$(pwd):$(pwd):ro" \
+      --workdir "$(pwd)" \
+        "${docker_img_name}:${docker_img_version}" \
+        sh -c \
+          "${install_cmd} ${default_pkgs} ${pkgs} && test/run"
+    eval "(( ${?} ${expected_result} ))"
+
 language: shell
 
 jobs:
