@@ -33,6 +33,14 @@ _docker_job: &docker_job
           "${install_cmd} ${default_pkgs} ${pkgs} && test/run"
     eval "(( ${?} ${expected_result} ))"
 
+_alpine_docker_job: &alpine_docker_job
+  <<: *docker_job
+  env: &alpine_docker_job_env
+    <<: *docker_job_env
+    docker_img_name: alpine
+    docker_img_version: latest
+    install_cmd: '"apk -q update && apk -q add"'
+
 language: shell
 
 jobs:
