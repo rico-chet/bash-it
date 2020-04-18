@@ -2,9 +2,19 @@
 # Keys starting with an underscore are the custom ones, refer to
 # https://docs.travis-ci.com/user/build-config-yaml#private-keys-as-yaml-anchors-and-aliases-and-external-tooling
 
+_job: &job
+  env: &job_env
+    expected_result: &failure '"!= success"'
+    expected_result: &success '"== success"' # default
+
 _native_job: &native_job
+  <<: *job
+  env:
+    <<: *job_env
   script: |
+    true; declare -i -r success=${?}
     test/run
+    eval "(( ${?} ${expected_result} ))"
 
 language: shell
 
