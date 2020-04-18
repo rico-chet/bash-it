@@ -49,6 +49,13 @@ _centos_docker_job: &centos_docker_job
     docker_img_version: latest
     install_cmd: '"yum -q -y install"'
 
+_debian_docker_job: &debian_docker_job
+  <<: *docker_job
+  _debian_docker_job_env: &debian_docker_job_env
+    <<: *docker_job_env
+    docker_img_name: debian
+    install_cmd: '"apt-get update && apt-get install -y"'
+
 language: shell
 
 services:
