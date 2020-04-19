@@ -43,6 +43,9 @@ _alpine_docker_job: &alpine_docker_job
 
 language: shell
 
+services:
+  - docker
+
 jobs:
   - <<: *native_job
     os: linux
