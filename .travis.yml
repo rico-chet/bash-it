@@ -61,5 +61,9 @@ jobs:
       expected_result: '"!= good"' # failures due to tools missing
   - <<: *native_job
     os: linux
+  - <<: *centos_docker_job
+    env:
+      <<: *centos_docker_job_env
+      expected_result: '"!= good"' # failures due to missing `where`
   - <<: *native_job
     os: osx
