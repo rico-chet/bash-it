@@ -75,7 +75,22 @@ jobs:
   - <<: *debian_docker_job
     env:
       <<: *debian_docker_job_env
+      docker_img_version: oldoldstable-slim
+      expected_result: '"!= good"' # failures due to tools missing
+  - <<: *debian_docker_job
+    env:
+      <<: *debian_docker_job_env
+      docker_img_version: oldstable-slim
+      expected_result: '"!= good"' # failures due to tools missing
+  - <<: *debian_docker_job
+    env:
+      <<: *debian_docker_job_env
       docker_img_version: stable-slim
+      expected_result: '"!= good"' # failures due to tools missing
+  - <<: *debian_docker_job
+    env:
+      <<: *debian_docker_job_env
+      docker_img_version: testing-slim
       expected_result: '"!= good"' # failures due to tools missing
   - <<: *native_job
     os: osx
