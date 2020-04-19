@@ -72,5 +72,10 @@ jobs:
     env:
       <<: *centos_docker_job_env
       expected_result: '"!= good"' # failures due to missing `where`
+  - <<: *debian_docker_job
+    env:
+      <<: *debian_docker_job_env
+      docker_img_version: stable-slim
+      expected_result: '"!= good"' # failures due to tools missing
   - <<: *native_job
     os: osx
