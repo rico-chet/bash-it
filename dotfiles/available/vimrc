@@ -35,3 +35,43 @@ if filereadable("/usr/lib/ycmd/ycm_extra_conf.py")
 	let g:ycm_global_ycm_extra_conf = "/usr/lib/ycmd/ycm_extra_conf.py"
 	filetype on
 endif
+
+" set up `cscope`
+" this was adapted from
+" https://vimhelp.org/if_cscop.txt.html#cscope-suggestions
+if has("cscope")
+	set cscopetagorder=0
+	set cscopetag
+
+	" add any database in current directory
+	set nocscopeverbose
+	if filereadable("cscope.out")
+		cscope add cscope.out
+	" else add database pointed to by environment
+	elseif "${CSCOPE_DB}" != ""
+		cscope add "${CSCOPE_DB}"
+	endif
+	set cscopeverbose
+
+	" add common shortcuts
+	"
+	" s: Find this C symbol
+	" g: Find this definition
+	" d: Find functions called by this function
+	" c: Find functions calling this function
+	" t: Find this text string
+	" e: Find this egrep pattern
+	" f: Find this file
+	" i: Find files #including this file
+	" a: Find places where this symbol is assigned a value
+	"
+	nmap gss :cscope find s <C-R>=expand("<cword>")<CR><CR>
+	nmap gsg :cscope find g <C-R>=expand("<cword>")<CR><CR>
+	nmap gsd :cscope find d <C-R>=expand("<cword>")<CR><CR>
+	nmap gsc :cscope find c <C-R>=expand("<cword>")<CR><CR>
+	nmap gst :cscope find t <C-R>=expand("<cword>")<CR><CR>
+	nmap gse :cscope find e <C-R>=expand("<cword>")<CR><CR>
+	nmap gsf :cscope find f <C-R>=expand("<cword>")<CR><CR>
+	nmap gsi :cscope find i <C-R>=expand("<cword>")<CR><CR>
+	nmap gsa :cscope find a <C-R>=expand("<cword>")<CR><CR>
+endif
