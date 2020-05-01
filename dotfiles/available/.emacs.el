@@ -60,3 +60,5 @@
 ;; hide the menu bar to save space
 (if (not (eq window-system 'x))
   (menu-bar-mode -1))
+
+(save-place-mode 1)
