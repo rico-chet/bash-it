@@ -23,11 +23,13 @@ rmrm() {
   /bin/rm "${@}"
 }
 
-rm() {
+rm_disabled() {
   # shellcheck disable=SC2016
   echo '`rm` is disabled by `bash-it`, use `t` or `rmrm` instead' > /dev/stderr
   return 1
 }
+
+alias rm=rm_disabled
 
 # shellcheck disable=SC2139
 alias t="${_trash}"
