@@ -1,4 +1,19 @@
 #!/usr/bin/env bash
+
+# Make sure tests are run in interactive mode, otherwise they fail.
+# Currently, `bash-it` is disabled in non-interactive mode.
+case $- in
+*i*)
+  echo "interactive shell detected"
+;;
+*)
+  # non-interactive shell, run in an interactive one instead
+  echo "non-interactive shell detected, switching to interactive one"
+  bash --norc -i -- "${0}" "${@}"
+  exit
+;;
+esac
+
 test_directory="$(cd "$(dirname "$0")" && pwd)"
 bats_executable="${test_directory}/../test_lib/bats-core/bin/bats"
 
