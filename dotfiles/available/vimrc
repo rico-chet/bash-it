@@ -92,3 +92,6 @@ vnoremap <silent> # :<C-U>
 " Enable auto-indentation for convenient editing
 set autoindent
 set smartindent
+
+" Enable hidden mode for convenient buffer handling
+set hidden
