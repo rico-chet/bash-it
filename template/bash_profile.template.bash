@@ -15,6 +15,9 @@ export BASH_IT="{{BASH_IT}}"
 if command -v powerline 1>/dev/null
 then
   export BASH_IT_THEME='powerline-multiline'
+  # don't spam /var/log/auth.log and speed up the terminal
+  # refer to https://github.com/Bash-it/bash-it/blob/master/themes/powerline/README.md#powerline-theme
+  export THEME_CHECK_SUDO=false
 else
   export BASH_IT_THEME='essential'
 fi
