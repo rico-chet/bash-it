@@ -95,3 +95,6 @@ set smartindent
 
 " Enable hidden mode for convenient buffer handling
 set hidden
+
+" Let vim match colors for better readability
+set background=dark
