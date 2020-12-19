@@ -22,11 +22,13 @@ alias gs='git status'
 alias gss='git status -s'
 alias gsu='git submodule update --init --recursive'
 alias gl='git pull'
+alias gpl='git pull'
 alias glum='git pull upstream master'
 alias gpr='git pull --rebase'
 alias gpp='git pull && git push'
 alias gup='git fetch && git rebase'
 alias gp='git push'
+alias gpd='git push --delete'
 alias gpo='git push origin HEAD'
 alias gpu='git push --set-upstream'
 alias gpuo='git push --set-upstream origin'
@@ -50,6 +52,8 @@ alias gci='git commit --interactive'
 alias gcamd='git commit --amend'
 alias gb='git branch'
 alias gba='git branch -a'
+# FROM https://stackoverflow.com/a/58623139/10362396
+alias gbc='git for-each-ref --format="%(authorname) %09 %(if)%(HEAD)%(then)*%(else)%(refname:short)%(end) %09 %(creatordate)" refs/remotes/ --sort=authorname DESC'
 alias gbt='git branch --track'
 alias gbm='git branch -m'
 alias gbd='git branch -d'
@@ -61,6 +65,7 @@ alias gco='git checkout'
 alias gcom='git checkout master'
 alias gcb='git checkout -b'
 alias gcob='git checkout -b'
+alias gcobu='git checkout -b ${USER}/'
 alias gct='git checkout --track'
 alias gcpd='git checkout master; git pull; git branch -D'
 alias gexport='git archive --format zip --output'
@@ -68,6 +73,7 @@ alias gdel='git branch -D'
 alias gmu='git fetch origin -v; git fetch upstream -v; git merge upstream/master'
 alias gll='git log --graph --pretty=oneline --abbrev-commit'
 alias gg="git log --graph --pretty=format:'%C(bold)%h%Creset%C(magenta)%d%Creset %s %C(yellow)<%an> %C(cyan)(%cr)%Creset' --abbrev-commit --date=relative"
+alias ggf="git log --graph --date=short --pretty=format:'%C(auto)%h %Cgreen%an%Creset %Cblue%cd%Creset %C(auto)%d %s'"
 alias ggs="gg --stat"
 alias gsh="git show"
 alias gsl="git shortlog -sn"
@@ -84,6 +90,7 @@ alias gnew="git log HEAD@{1}..HEAD@{0}"
 alias gcaa="git commit -a --amend -C HEAD"
 # Rebase with latest remote master
 alias gprom="git fetch origin master && git rebase origin/master && git update-ref refs/heads/master origin/master"
+alias gpf="git push --force"
 alias gpunch="git push --force-with-lease"
 alias ggui="git gui"
 alias gcsam="git commit -S -am"
@@ -115,6 +122,10 @@ if ! _command_exists gh; then
 fi
 # Show untracked files
 alias gu='git ls-files . --exclude-standard --others'
+
+# Git SVN
+alias gsr='git svn rebase'
+alias gsd='git svn dcommit'
 
 case $OSTYPE in
   darwin*)
