@@ -193,6 +193,7 @@ else
   _enable-completion system
   _enable-plugin base
   _enable-plugin alias-completion
+  _enable-plugin cpp-core-guidelines
   _enable-plugin history-custom
   _enable-plugin keychain-pgp
   _enable-plugin keychain-ssh
