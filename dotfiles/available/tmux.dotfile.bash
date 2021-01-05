@@ -28,7 +28,7 @@ then
   if [ -n "${byobu_conf_dir}" ]
   then
     # install
-    cp --symbolic-link \
+    cp --remove-destination --symbolic-link \
       "${PWD}/dotfiles/available/tmux.conf" "${byobu_conf_dir}/.tmux.conf"
 
   # check postcondition
