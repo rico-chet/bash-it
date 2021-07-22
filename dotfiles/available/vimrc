@@ -98,3 +98,7 @@ set hidden
 
 " Let vim match colors for better readability
 set background=dark
+
+" Store swap files in a directory where they don't disturb the sight.
+silent exec "!mkdir -p ~/.vim/swapfiles"
+set directory=$HOME/.vim/swapfiles//
