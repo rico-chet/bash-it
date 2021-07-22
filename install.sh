@@ -199,6 +199,7 @@ else
   _enable-plugin keychain-ssh
   _enable-plugin less-raw-chars
   _enable-plugin proxy-func
+  _enable-plugin python-no-pycache
   _enable-plugin stderred
   _enable-plugin stow
   _enable-alias fuck
