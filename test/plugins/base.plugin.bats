@@ -1,7 +1,7 @@
 #!/usr/bin/env bats
 
 load ../test_helper
-load "${BASH_IT}/vendor/github.com/erichs/composure/composure.sh"
+load ../test_helper_libs
 load ../../plugins/available/base.plugin
 
 @test 'plugins base: ips()' {
@@ -19,7 +19,7 @@ load ../../plugins/available/base.plugin
   run myip
   assert_success
   declare -r mask_ip=$(echo $output | tr -s '[0-9]' '?')
-  [[ $mask_ip == 'Your public IP is: ?.?.?.?' ]]
+  [[ $mask_ip == 'Your public IP is:'*'?.?.?.?'* ]]
 }
 
 @test 'plugins base: pickfrom()' {
@@ -40,7 +40,7 @@ load ../../plugins/available/base.plugin
   mkcd "${dir_name}"
   assert_success
   assert_dir_exist "${BASH_IT_ROOT}/${dir_name}"
-  assert_equal $(pwd) "${BASH_IT_ROOT}/${dir_name}"
+  assert_equal "${PWD}" "${BASH_IT_ROOT//\/\///}/${dir_name}"
 }
 
 @test 'plugins base: lsgrep()' {

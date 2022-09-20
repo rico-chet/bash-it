@@ -1,13 +1,13 @@
-cite 'about-alias'
+# shellcheck shell=bash
 about-alias 'fuck/please to retry last command with sudo'
 
 # Check
-command -v thefuck 1>/dev/null || return "${SKIPPED}"
+_command_exists thefuck || return "${SKIPPED}"
 thefuck --alias fuck &>/dev/null || return 1
 
 # Play nicely with 'thefuck' plugin
 if ! _command_exists fuck ; then
-    eval $(thefuck --alias fuck)
+	eval $(thefuck --alias fuck)
 fi
 alias please=fuck
 alias plz=please

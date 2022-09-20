@@ -3,11 +3,11 @@
 cite about-plugin
 about-plugin 'start a daemon keeping PGP keys unlocked'
 
-{ command -v gpg &>/dev/null \
-  && command -v keychain &>/dev/null \
-  && command -v killall &>/dev/null \
-  && command -v readlink &>/dev/null \
-  && command -v pinentry-curses &>/dev/null ;} \
+{ _command_exists gpg \
+  && _command_exists keychain \
+  && _command_exists killall \
+  && _command_exists readlink \
+  && _command_exists pinentry-curses ;} \
   || return "${SKIPPED}"
 
 killall --quiet gnome-keyring-daemon

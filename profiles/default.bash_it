@@ -1,0 +1,32 @@
+# This is the default profile of Bash-it
+
+# plugins
+plugins base
+
+# completion
+completion aliases
+completion bash-it
+completion system
+
+plugins alias-completion
+plugins cpp-core-guidelines
+plugins history-custom
+plugins keychain-pgp
+plugins keychain-ssh
+plugins less-raw-chars
+plugins proxy-func
+plugins python-no-pycache
+plugins stderred
+plugins stow
+alias fuck
+alias git-brief
+alias grep-colored
+alias local
+alias ls
+alias sudo
+alias tig
+alias trash
+dotfile editorconfig
+dotfile emacs
+dotfile tmux
+dotfile vim

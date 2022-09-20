@@ -5,7 +5,7 @@ about-alias 'replace `rm` with a faster and safer `t`'
 # Check
 for i in gio gvfs-trash trash
 do
-  if command -v "${i}" &> /dev/null
+  if _command_exists "${i}" /dev/null
   then
     _trash="${i}"
     if [ "${i}" = "gio" ]

@@ -3,7 +3,7 @@ cite 'about-alias'
 about-alias '`tiga` alias'
 
 # Check
-command -v tig &>/dev/null || return "${SKIPPED}"
+_command_exists tig || return "${SKIPPED}"
 
 # Alias
 alias tiga='tig --all'

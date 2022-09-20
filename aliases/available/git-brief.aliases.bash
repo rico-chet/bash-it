@@ -2,7 +2,7 @@ cite 'about-alias'
 about-alias 'brief git abbreviations'
 
 # Check
-command -v git &>/dev/null || return "${SKIPPED}"
+_command_exists git || return "${SKIPPED}"
 
 # Subdirectories as prefixes
 declare -A git_prefixes=(

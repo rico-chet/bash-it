@@ -3,10 +3,10 @@
 cite about-plugin
 about-plugin 'start a daemon keeping SSH keys unlocked'
 
-{ command -v keychain &>/dev/null \
-  && command -v killall &>/dev/null \
-  && command -v ssh &>/dev/null \
-  && command -v ssh-add &>/dev/null ;} \
+{ _command_exists keychain \
+  && _command_exists killall \
+  && _command_exists ssh \
+  && _command_exists ssh-add ;} \
   || return "${SKIPPED}"
 
 killall --quiet gnome-keyring-daemon

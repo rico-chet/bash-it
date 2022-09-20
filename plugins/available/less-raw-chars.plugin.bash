@@ -5,6 +5,6 @@ cite about-plugin
 about-plugin 'make `less` interpret color escape sequences'
 
 # Check
-command -v less &>/dev/null || return "${SKIPPED}"
+_command_exists less || return "${SKIPPED}"
 
 export LESS="${LESS:+${LESS} }--RAW-CONTROL-CHARS"
