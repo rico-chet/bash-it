@@ -11,7 +11,10 @@ function _command_duration_pre_exec() {
 }
 
 function _dynamic_clock_icon {
-	local -i clock_hand=$(((${1:-${SECONDS}} % 12) + 90))
+	local clock_hand
+	# clock hand value is between 90 and 9b in hexadecimal.
+	# so between 144 and 155 in base 10.
+	printf -v clock_hand '%x' $(((${1:-${SECONDS}} % 12) + 144))
 	printf -v 'COMMAND_DURATION_ICON' '%b' "\xf0\x9f\x95\x$clock_hand"
 }
 
@@ -22,9 +25,11 @@ function _command_duration() {
 	local -i minutes=0 seconds=0 deciseconds=0
 	local -i command_start_seconds="${command_start%.*}"
 	local -i command_start_deciseconds=$((10#${command_start##*.}))
+	command_start_deciseconds="${command_start_deciseconds:0:1}"
 	local current_time="${EPOCHREALTIME:-$SECONDS}"
 	local -i current_time_seconds="${current_time%.*}"
 	local -i current_time_deciseconds="$((10#${current_time##*.}))"
+	current_time_deciseconds="${current_time_deciseconds:0:1}"
 
 	if [[ "${command_start_seconds:-0}" -gt 0 ]]; then
 		# seconds
@@ -47,9 +52,9 @@ function _command_duration() {
 
 	_dynamic_clock_icon "${command_duration}"
 	if ((minutes > 0)); then
-		printf "%s%s%dm %ds" "${COMMAND_DURATION_ICON:-}" "${COMMAND_DURATION_COLOR:-}" "$minutes" "$seconds"
+		printf "%s %s%dm %ds" "${COMMAND_DURATION_ICON:-}" "${COMMAND_DURATION_COLOR:-}" "$minutes" "$seconds"
 	elif ((seconds >= COMMAND_DURATION_MIN_SECONDS)); then
-		printf "%s%s%d.%01ds" "${COMMAND_DURATION_ICON:-}" "${COMMAND_DURATION_COLOR:-}" "$seconds" "$deciseconds"
+		printf "%s %s%d.%01ds" "${COMMAND_DURATION_ICON:-}" "${COMMAND_DURATION_COLOR:-}" "$seconds" "$deciseconds"
 	fi
 }
 
