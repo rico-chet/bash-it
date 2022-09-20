@@ -102,3 +102,9 @@ set background=dark
 " Store swap files in a directory where they don't disturb the sight.
 silent exec "!mkdir -p ~/.vim/swapfiles"
 set directory=$HOME/.vim/swapfiles//
+
+" Show relative line numbers for faster vertical movement.
+set relativenumber
+
+" Show current line number to keep us oriented.
+set number
