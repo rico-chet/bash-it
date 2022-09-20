@@ -14,7 +14,7 @@ indent_style = tab
 indent_size = 1
 insert_final_newline = true
 
-[{*.adoc,*.asciidoc,*.sh,Makefile*,vimrc,.vimrc,*.vim}]
+[{*.adoc,*.asciidoc,*.sh,*.bats,Makefile*,vimrc,.vimrc,*.vim}]
 indent_style = tab
 insert_final_newline = true
 max_line_length = 80
