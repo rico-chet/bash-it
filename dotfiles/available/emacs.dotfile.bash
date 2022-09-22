@@ -8,8 +8,8 @@ _command_exists emacs || return "${SKIPPED}"
 
 # install
 cp --no-clobber --symbolic-link \
-  "${PWD}/dotfiles/available/.emacs.el" "${HOME}/.emacs.el"
+  "${BASH_IT}/dotfiles/available/.emacs.el" "${HOME}/.emacs.el"
 
 # check postcondition
 _command_exists diff && diff --brief \
-  "${PWD}/dotfiles/available/.emacs.el" "${HOME}/.emacs.el" >/dev/null
+  "${BASH_IT}/dotfiles/available/.emacs.el" "${HOME}/.emacs.el" >/dev/null
