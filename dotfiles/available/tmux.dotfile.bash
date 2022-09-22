@@ -8,11 +8,11 @@ _command_exists tmux || return "${SKIPPED}"
 
 # install
 cp --no-clobber --symbolic-link \
-  "${PWD}/dotfiles/available/tmux.conf" "${HOME}/.tmux.conf"
+  "${BASH_IT}/dotfiles/available/tmux.conf" "${HOME}/.tmux.conf"
 
 # check postcondition
 _command_exists diff && diff --brief \
-  "${PWD}/dotfiles/available/tmux.conf" "${HOME}/.tmux.conf" >/dev/null
+  "${BASH_IT}/dotfiles/available/tmux.conf" "${HOME}/.tmux.conf" >/dev/null
 
 # install for byobu when present
 if _command_exists byobu
@@ -29,12 +29,12 @@ then
   then
     # install
     cp --remove-destination --symbolic-link \
-      "${PWD}/dotfiles/available/tmux.conf" "${byobu_conf_dir}/.tmux.conf"
+      "${BASH_IT}/dotfiles/available/tmux.conf" "${byobu_conf_dir}/.tmux.conf"
 
   # check postcondition
   _command_exists diff \
   && diff --brief \
-    "${PWD}/dotfiles/available/tmux.conf" "${byobu_conf_dir}/.tmux.conf" \
+    "${BASH_IT}/dotfiles/available/tmux.conf" "${byobu_conf_dir}/.tmux.conf" \
     >/dev/null
   fi
 fi
