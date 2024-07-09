@@ -119,3 +119,8 @@ if filereadable("/usr/share/vim-scripts/alternateFile/plugin/a.vim")
 	" Set up alternateFile from Debian's `vim-scripts`.
 	packadd! alternateFile
 endif
+
+if filereadable("/usr/share/vim-scripts/surround/plugin/surround.vim")
+	" Set up surround from Debian's `vim-scripts`.
+	packadd! surround
+endif
