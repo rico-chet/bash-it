@@ -111,3 +111,6 @@ set number
 
 " Make gitgutter more useful by updating the indicator quite often.
 set updatetime=256
+
+" Disable the BS
+let g:copilot_enabled = 0
