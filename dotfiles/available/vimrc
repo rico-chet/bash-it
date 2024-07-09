@@ -114,3 +114,8 @@ set updatetime=256
 
 " Disable the BS
 let g:copilot_enabled = 0
+
+if filereadable("/usr/share/vim-scripts/alternateFile/plugin/a.vim")
+	" Set up alternateFile from Debian's `vim-scripts`.
+	packadd! alternateFile
+endif
