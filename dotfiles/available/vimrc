@@ -108,3 +108,6 @@ set relativenumber
 
 " Show current line number to keep us oriented.
 set number
+
+" Make gitgutter more useful by updating the indicator quite often.
+set updatetime=256
