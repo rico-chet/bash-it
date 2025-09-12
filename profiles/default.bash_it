@@ -26,7 +26,7 @@ aliases ls
 aliases sudo
 aliases tig
 aliases trash
-dotfile editorconfig
-dotfile emacs
-dotfile tmux
-dotfile vim
+dotfiles editorconfig
+dotfiles emacs
+dotfiles tmux
+dotfiles vim
