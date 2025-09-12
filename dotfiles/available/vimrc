@@ -32,8 +32,14 @@ endif
 
 if filereadable("/usr/lib/ycmd/ycm_extra_conf.py")
 	" Set up youcompleteme
+	let g:ycm_enable_semantic_highlighting = 1
 	let g:ycm_global_ycm_extra_conf = "/usr/lib/ycmd/ycm_extra_conf.py"
 	filetype on
+
+	" Make clangd find the std headers
+	let g:ycm_clangd_args = [
+		\ '--query-driver=/usr/bin/g++',
+	\ ]
 endif
 
 " set up `cscope`
