@@ -130,3 +130,8 @@ if filereadable("/usr/share/vim-scripts/surround/plugin/surround.vim")
 	" Set up surround from Debian's `vim-scripts`.
 	packadd! surround
 endif
+
+if filereadable("/usr/share/vim-scripts/detectindent/plugin/detectindent.vim")
+	" Set up detectindent from Debian's `vim-scripts`.
+	packadd! detectindent
+endif
