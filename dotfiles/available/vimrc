@@ -140,3 +140,8 @@ if filereadable("/usr/share/vim-scripts/taglist/plugin/taglist.vim")
 	" Set up taglist from Debian's `vim-scripts`.
 	packadd! taglist
 endif
+
+if filereadable("/usr/share/vim-scripts/project/plugin/project.vim")
+	" Set up project from Debian's `vim-scripts`.
+	packadd! project
+endif
