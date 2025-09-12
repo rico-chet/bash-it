@@ -145,3 +145,8 @@ if filereadable("/usr/share/vim-scripts/project/plugin/project.vim")
 	" Set up project from Debian's `vim-scripts`.
 	packadd! project
 endif
+
+if filereadable("/usr/share/vim-ale/plugin/ale.vim")
+	let g:ale_completion_enabled = 1
+	packadd! ale
+endif
