@@ -3,6 +3,8 @@
 #
 # A collection of reusable functions.
 
+source "${BASH_IT}/lib/colors.bash"
+
 : "${BASH_IT_LOAD_PRIORITY_ALIAS:=150}"
 : "${BASH_IT_LOAD_PRIORITY_DOTFILE:=200}"
 : "${BASH_IT_LOAD_PRIORITY_PLUGIN:=250}"
