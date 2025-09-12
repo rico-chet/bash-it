@@ -859,7 +859,7 @@ function _enable-aliases() {
 	_enable-alias "$@"
 }
 
-function _enable-dotfile() {
+function _enable-dotfiles() {
 	_about 'enables bash_it dotfile'
 	_param '1: dotfile name'
 	_example '$ enable-dotfile emacs'
