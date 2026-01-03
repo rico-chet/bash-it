@@ -1,5 +1,6 @@
 # shellcheck shell=bash
 about-alias 'fuck/please to retry last command with sudo'
+url "https://github.com/Bash-it/bash-it"
 
 # Check
 _command_exists thefuck || return "${SKIPPED}"

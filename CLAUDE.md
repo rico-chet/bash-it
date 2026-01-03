@@ -108,6 +108,16 @@ bash-it search docker
 
 ## Development Guidelines
 
+### Git Workflow
+- **NEVER commit directly to master branch**
+- Master should always stay in sync with `origin/master`
+- Always create a feature branch for new work: `git checkout -b feature/feature-name`
+- Keep feature branches focused on a single issue/feature
+- Create separate branches for separate features
+- Push feature branches with upstream tracking: `git push -u fork feature-branch-name`
+  - This allows manual pushes later with just `git push`
+  - Use `--force-with-lease` for rebased branches
+
 ### Component Development
 - Use composure metadata: `about`, `group`, `author`, `example`
 - Follow naming convention: `{name}.{type}.bash`
@@ -124,3 +134,25 @@ bash-it search docker
 - Follow existing code style in the repository
 - Add appropriate metadata using composure functions
 - Components should handle missing dependencies gracefully
+- **Prefix sensitive commands with `command`** to bypass user aliases:
+  - `command mv` instead of `mv` (users may have `alias mv='mv -i'`)
+  - `command grep` instead of `grep` (users may have custom grep flags)
+  - `command rm` instead of `rm` (users may have `alias rm='rm -i'`)
+  - Apply to any command that could be aliased and break core functionality
+  - This prevents surprises from user's alias configurations in bash-it core functions
+- **Use parameter expansion with default for potentially unset variables**:
+  - `${VARIABLE-}` instead of `$VARIABLE` when variable may be unset
+  - Prevents errors when `set -u` is active in user's shell
+  - Examples: `${BASH_VERSION-}`, `${HOME-}`, `${PATH-}`
+  - Critical for variables checked in conditionals: `if [ -n "${BASH_VERSION-}" ]`
+  - This defensive practice ensures scripts work regardless of user's shell options
+
+## Project Planning & Roadmaps
+
+Strategic planning documents are maintained in `docs/plans/`:
+
+- **[Quick Reference](docs/plans/bash-it-quick-reference.md)** - TL;DR summary of current issues and action items
+- **[Comprehensive Issue Analysis](docs/plans/bash-it-issues-comprehensive-analysis.md)** - Detailed breakdown of all open issues with categorization and recommendations
+- **[2025 Roadmap](docs/plans/bash-it-roadmap-2025.md)** - 6-month technical debt reduction plan with phases and success metrics
+
+These documents guide ongoing maintenance, issue triage, and code quality improvements.
