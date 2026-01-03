@@ -9,7 +9,7 @@ fi
 
 alias g='git'
 alias get='git'
-alias got='git '
+alias got='git'
 
 # add
 alias ga='git add'
@@ -111,6 +111,7 @@ alias gm='git merge'
 alias gma='git merge --abort'
 alias gmc='git merge --continue'
 alias gms='git merge --squash'
+alias gmt='git mergetool'
 
 # mv
 alias gmv='git mv'
@@ -210,6 +211,12 @@ alias gt='git tag'
 alias gta='git tag -a'
 alias gtd='git tag -d'
 alias gtl='git tag -l'
+
+#worktree
+alias gw='git worktree'
+alias gwa='git worktree add'
+alias gwl='git worktree list'
+alias gwr='git worktree remove'
 
 case $OSTYPE in
 	darwin*)

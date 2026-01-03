@@ -1,8 +1,7 @@
 # shellcheck shell=bash
-cite about-plugin
 about-plugin 'load ble.sh, the Bash line editor!'
 
-if [[ ${BLE_VERSION-} ]]; then
+if [[ -n "${BLE_VERSION-}" ]]; then
 	_log_warning "ble.sh is already loaded!"
 	return
 fi
@@ -11,6 +10,10 @@ _bash_it_ble_path=${XDG_DATA_HOME:-$HOME/.local/share}/blesh/ble.sh
 if [[ -f $_bash_it_ble_path ]]; then
 	# shellcheck disable=1090
 	source "$_bash_it_ble_path" --attach=prompt
+	if _bash-it-component-item-is-enabled plugin fzf; then
+		ble-import -d integration/fzf-key-bindings
+		ble-import -d integration/fzf-completion
+	fi
 else
 	_log_error "Could not find ble.sh in $_bash_it_ble_path"
 	_log_error "Please install using the following command:"
