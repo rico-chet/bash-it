@@ -17,7 +17,12 @@ export STOW_DIR="${STOW_TARGET_DIR}/stow"
 [ -r "${STOW_DIR}/.stow" ] \
   || { mkdir --parents "${STOW_DIR}" && touch "${STOW_DIR}/.stow"; }
 # binaries
-export PATH="${STOW_TARGET_DIR}/bin"${PATH:+:${PATH}}
+if echo "${PATH}" \
+	| awk --assign needle="${STOW_TARGET_DIR}/bin" \
+	'BEGIN { RS = ":" } $0 == needle { exit 1 }'
+then
+	export PATH="${STOW_TARGET_DIR}/bin:${PATH}"
+fi
 # compiler
 export CPATH=${CPATH:+${CPATH}:}"${STOW_TARGET_DIR}/include"
 export LIBRARY_PATH=${LIBRARY_PATH:+${LIBRARY_PATH}:}"${STOW_TARGET_DIR}/lib:${STOW_TARGET_DIR}/usr/lib/x86_64-linux-gnu"
