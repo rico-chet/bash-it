@@ -9,5 +9,5 @@ _command_exists grep || return "${SKIPPED}"
 if grep --color=auto "a" "${BASH_IT}/"*.md &> /dev/null
 then
   alias grep='grep --color=auto'
-  export GREP_COLOR='1;33'
+  export GREP_COLORS='mt=1;33'
 fi
